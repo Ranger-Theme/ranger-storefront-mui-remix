@@ -3,7 +3,7 @@ import { CssBaseline } from '@mui/material'
 import type { LinksFunction } from '@remix-run/node'
 import RootCSS from './tailwind.css?url'
 
-import AppShell from './components/AppShell'
+import AppShell from '@/components/AppShell'
 
 export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: RootCSS }]
