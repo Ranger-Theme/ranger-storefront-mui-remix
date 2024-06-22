@@ -3,6 +3,7 @@ import { createReadableStreamFromReadable } from '@remix-run/node'
 import { RemixServer } from '@remix-run/react'
 import { isbot } from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
+import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
 import type { EntryContext } from '@remix-run/node'
 
 import MuiProvider from './mui/MuiProvider'
@@ -16,13 +17,25 @@ export default function handleRequest(
   remixContext: EntryContext
 ) {
   const callbackName = isbot(request.headers.get('user-agent')) ? 'onAllReady' : 'onShellReady'
+  const client = new ApolloClient({
+    ssrMode: true,
+    cache: new InMemoryCache(),
+    link: createHttpLink({
+      uri: 'http://82.157.172.168/graphql',
+      headers: request.headers as never,
+      credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain
+    })
+  })
 
   return new Promise((resolve, reject) => {
     let shellRendered = false
+
     const { pipe, abort } = renderToPipeableStream(
-      <MuiProvider>
-        <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
-      </MuiProvider>,
+      <ApolloProvider client={client}>
+        <MuiProvider>
+          <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
+        </MuiProvider>
+      </ApolloProvider>,
       {
         [callbackName]: () => {
           shellRendered = true

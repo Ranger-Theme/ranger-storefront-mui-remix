@@ -1,4 +1,5 @@
-import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
+import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
+import { json } from '@remix-run/node'
 import { CssBaseline } from '@mui/material'
 import type { LinksFunction } from '@remix-run/node'
 import RootCSS from './tailwind.css?url'
@@ -9,7 +10,14 @@ export const links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: RootCSS }]
 }
 
-export function Layout({ children }: { children: React.ReactNode }) {
+export const loader = async () => {
+  return json([
+    { id: '1', name: 'Pants' },
+    { id: '2', name: 'Jacket' }
+  ])
+}
+
+export const Layout = ({ children }: { children: React.ReactNode }) => {
   return (
     <html lang="en">
       <head>
@@ -27,7 +35,10 @@ export function Layout({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function App() {
+const App = () => {
+  const products = useLoaderData<typeof loader>()
+  console.info('products:', products)
+
   return (
     <div id="__remix">
       <CssBaseline />
@@ -37,3 +48,5 @@ export default function App() {
     </div>
   )
 }
+
+export default App
