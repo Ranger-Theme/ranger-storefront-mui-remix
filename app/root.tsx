@@ -1,11 +1,13 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration, useLoaderData } from '@remix-run/react'
 import { json } from '@remix-run/node'
 import { CssBaseline } from '@mui/material'
+import { useDispatch } from 'react-redux'
 import type { LinksFunction } from '@remix-run/node'
 import RootCSS from './tailwind.css?url'
 
 import { client } from './apollo/client'
 import { GET_STORE_CONFIG } from '@/graphql/queries/getStoreConfig'
+import { actions as appActions } from '@/store/app'
 import AppShell from '@/components/AppShell'
 
 export const links: LinksFunction = () => {
@@ -38,14 +40,16 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 }
 
 const App = () => {
-  const products = useLoaderData<typeof loader>()
-  console.info('products:', products)
+  const dispatch = useDispatch()
+  const globalData = useLoaderData<typeof loader>()
+
+  dispatch(appActions.setAppConfig(globalData))
 
   return (
     <div id="__remix">
       <CssBaseline />
       <AppShell>
-        <Outlet />
+        <Outlet context={globalData} />
       </AppShell>
     </div>
   )

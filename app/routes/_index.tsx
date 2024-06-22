@@ -1,4 +1,4 @@
-import { Link } from '@remix-run/react'
+import { Link, useOutletContext } from '@remix-run/react'
 import { Button } from '@mui/material'
 import type { MetaFunction } from '@remix-run/node'
 
@@ -7,6 +7,9 @@ export const meta: MetaFunction = () => {
 }
 
 export default function Index() {
+  const context = useOutletContext()
+  // console.info(context)
+
   return (
     <div className="font-sans p-4">
       <h1 className="text-3xl">Welcome to Remix</h1>

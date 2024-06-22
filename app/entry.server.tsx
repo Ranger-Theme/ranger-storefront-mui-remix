@@ -4,8 +4,10 @@ import { RemixServer } from '@remix-run/react'
 import { isbot } from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
 import { ApolloProvider, ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
+import { Provider } from 'react-redux'
 import type { EntryContext } from '@remix-run/node'
 
+import { makeStore } from '@/store/store'
 import MuiProvider from './mui/MuiProvider'
 
 const ABORT_DELAY = 5_000
@@ -27,15 +29,18 @@ export default function handleRequest(
       credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain
     })
   })
+  const store = makeStore()
 
   return new Promise((resolve, reject) => {
     let shellRendered = false
 
     const { pipe, abort } = renderToPipeableStream(
       <ApolloProvider client={client}>
-        <MuiProvider>
-          <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
-        </MuiProvider>
+        <Provider store={store}>
+          <MuiProvider>
+            <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
+          </MuiProvider>
+        </Provider>
       </ApolloProvider>,
       {
         [callbackName]: () => {
