@@ -13,6 +13,10 @@ export default defineConfig({
     }),
     tsconfigPaths()
   ],
+  server: {
+    host: '127.0.0.1',
+    port: 3000
+  },
   ssr: {
     noExternal: ['@apollo/client']
   }

@@ -23,6 +23,7 @@ export default function handleRequest(
     link: createHttpLink({
       uri: 'http://82.157.172.168/graphql',
       headers: request.headers as never,
+      useGETForQueries: true,
       credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain
     })
   })
