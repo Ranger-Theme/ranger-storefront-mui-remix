@@ -8,8 +8,8 @@ export async function loader({ request }: LoaderFunctionArgs) {
   const variables = newUrl.searchParams.get('variables')
   const operationName = newUrl.searchParams.get('operationName')
   const api = newUrl.origin.replace(
-    process.env.REMIX_PUBLIC_HOST_URL,
-    process.env.REMIX_PUBLIC_API_URL
+    import.meta.env.REMIX_PUBLIC_HOST_URL,
+    import.meta.env.REMIX_PUBLIC_API_URL
   )
 
   const res = await fetch(`${api}/graphql`, {
@@ -32,8 +32,8 @@ export async function action({ request }: ActionFunctionArgs) {
 
   const { query, variables, operationName } = await request.json()
   const api = newUrl.origin.replace(
-    process.env.REMIX_PUBLIC_HOST_URL,
-    process.env.REMIX_PUBLIC_API_URL
+    import.meta.env.REMIX_PUBLIC_HOST_URL,
+    import.meta.env.REMIX_PUBLIC_API_URL
   )
 
   const res = await fetch(`${api}/graphql`, {

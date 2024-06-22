@@ -21,7 +21,7 @@ export default function handleRequest(
     ssrMode: true,
     cache: new InMemoryCache(),
     link: createHttpLink({
-      uri: 'http://82.157.172.168/graphql',
+      uri: `${import.meta.env.REMIX_PUBLIC_HOST_URL}/api`,
       headers: request.headers as never,
       useGETForQueries: true,
       credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain

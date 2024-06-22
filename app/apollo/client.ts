@@ -1,11 +1,14 @@
-// import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'
+import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
 
-// const client = new ApolloClient({
-//   ssrMode: true,
-//   cache: new InMemoryCache(),
-//   link: createHttpLink({
-//     uri: 'https://flyby-gateway.herokuapp.com/', // from Apollo's Voyage tutorial series (https://www.apollographql.com/tutorials/voyage-part1/)
-//     headers: request.headers,
-//     credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain
-//   })
-// })
+export const client = new ApolloClient({
+  ssrMode: true,
+  // cache: new InMemoryCache().restore(window.__APOLLO_STATE__),
+  cache: new InMemoryCache({
+    addTypename: false
+  }),
+  link: new HttpLink({
+    uri: `${import.meta.env.REMIX_PUBLIC_HOST_URL}/api`,
+    credentials: 'same-origin',
+    useGETForQueries: true
+  })
+})
