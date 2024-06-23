@@ -5,7 +5,7 @@ import { useDispatch } from 'react-redux'
 import type { LinksFunction } from '@remix-run/node'
 import RootCSS from './tailwind.css?url'
 
-import { client } from './apollo/client'
+import { makeClient } from './apollo/client'
 import { GET_STORE_CONFIG } from '@/graphql/queries/getStoreConfig'
 import { actions as appActions } from '@/store/app'
 import AppShell from '@/components/AppShell'
@@ -15,6 +15,7 @@ export const links: LinksFunction = () => {
 }
 
 export const loader = async () => {
+  const client = makeClient()
   const { data } = await client.query({
     query: GET_STORE_CONFIG
   })

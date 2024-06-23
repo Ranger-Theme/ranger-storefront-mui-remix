@@ -6,9 +6,10 @@ import { Provider } from 'react-redux'
 
 import { makeStore } from '@/store/store'
 import MuiProvider from './mui/MuiProvider'
-import { client } from './apollo/client'
+import { makeClient } from './apollo/client'
 
 startTransition(() => {
+  const client = makeClient()
   const store = makeStore()
 
   hydrateRoot(

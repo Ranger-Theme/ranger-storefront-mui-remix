@@ -43,7 +43,6 @@ module.exports = {
         }
       }
     },
-
     // Typescript
     {
       files: ['**/*.{ts,tsx}'],
@@ -58,13 +57,17 @@ module.exports = {
           typescript: {
             alwaysTryTypes: true
           }
-        }
+        },
+        '@typescript-eslint/no-explicit-any': 'off'
       },
       extends: [
         'plugin:@typescript-eslint/recommended',
         'plugin:import/recommended',
         'plugin:import/typescript'
-      ]
+      ],
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off'
+      }
     },
 
     // Node
@@ -85,6 +88,6 @@ module.exports = {
         usePrettierrc: false
       }
     ],
-    '@typescript-eslint/no-explicit-any': 0
+    '@typescript-eslint/no-explicit-any': 'off'
   }
 }
