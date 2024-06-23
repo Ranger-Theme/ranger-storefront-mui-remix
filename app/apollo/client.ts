@@ -1,7 +1,6 @@
 import { ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
-import type { HttpOptions } from '@apollo/client'
 
-export const makeClient = (options?: HttpOptions) => {
+export const makeClient = (request?: Request) => {
   const client = new ApolloClient({
     ssrMode: true,
     cache: new InMemoryCache({
@@ -10,8 +9,10 @@ export const makeClient = (options?: HttpOptions) => {
     link: new HttpLink({
       uri: `${import.meta.env.REMIX_PUBLIC_HOST_URL}/api`,
       useGETForQueries: true,
-      credentials: 'same-origin',
-      ...options
+      headers: {
+        ...(request?.headers ? Object.fromEntries(request?.headers) : {})
+      },
+      credentials: request?.credentials ?? 'same-origin'
     })
   })
 
