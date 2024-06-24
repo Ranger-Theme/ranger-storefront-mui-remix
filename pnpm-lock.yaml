@@ -17,6 +17,9 @@ dependencies:
   '@emotion/styled':
     specifier: ^11.11.5
     version: 11.11.5(@emotion/react@11.11.4)(@types/react@18.3.3)(react@18.3.1)
+  '@loadable/component':
+    specifier: ^5.16.4
+    version: 5.16.4(react@18.3.1)
   '@mui/icons-material':
     specifier: ^5.15.20
     version: 5.15.20(@mui/material@5.15.20)(@types/react@18.3.3)(react@18.3.1)
@@ -52,6 +55,9 @@ devDependencies:
   '@remix-run/dev':
     specifier: ^2.9.2
     version: 2.9.2(@remix-run/react@2.9.2)(@remix-run/serve@2.9.2)(typescript@5.4.5)(vite@5.3.1)
+  '@types/loadable__component':
+    specifier: ^5.13.9
+    version: 5.13.9
   '@types/react':
     specifier: ^18.3.3
     version: 18.3.3
@@ -1165,6 +1171,18 @@ packages:
     resolution: {integrity: sha512-Lg3PnLp0QXpxwLIAuuJboLeRaIhrgJjeuh797QADg3xz8wGLugQOS5DpsE8A6i6Adgzf+bacllkKZG3J0tGfDw==}
     dev: true
 
+  /@loadable/component@5.16.4(react@18.3.1):
+    resolution: {integrity: sha512-fJWxx9b5WHX90QKmizo9B+es2so8DnBthI1mbflwCoOyvzEwxiZ/SVDCTtXEnHG72/kGBdzr297SSIekYtzSOQ==}
+    engines: {node: '>=8'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.0 || ^18.0.0
+    dependencies:
+      '@babel/runtime': 7.24.7
+      hoist-non-react-statics: 3.3.2
+      react: 18.3.1
+      react-is: 16.13.1
+    dev: false
+
   /@mdx-js/mdx@2.3.0:
     resolution: {integrity: sha512-jLuwRlz8DQfQNiUCJR50Y09CGPq3fLtmtUQfVrj79E0JWu3dvsVcxVIcfhR5h0iXu+/z++zDrYeiJqifRynJkA==}
     dependencies:
@@ -1847,6 +1865,12 @@ packages:
 
   /@types/json5@0.0.29:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==}
+    dev: true
+
+  /@types/loadable__component@5.13.9:
+    resolution: {integrity: sha512-QWOtIkwZqHNdQj3nixQ8oyihQiTMKZLk/DNuvNxMSbTfxf47w+kqcbnxlUeBgAxdOtW0Dh48dTAIp83iJKtnrQ==}
+    dependencies:
+      '@types/react': 18.3.3
     dev: true
 
   /@types/mdast@3.0.15:
