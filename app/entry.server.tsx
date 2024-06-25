@@ -4,20 +4,24 @@ import { RemixServer } from '@remix-run/react'
 import { isbot } from 'isbot'
 import { renderToPipeableStream } from 'react-dom/server'
 import { Provider } from 'react-redux'
-import { ApolloProvider } from '@apollo/client'
+import { ApolloClient, ApolloProvider } from '@apollo/client'
 import { getDataFromTree } from '@apollo/client/react/ssr'
 import type { ReactElement } from 'react'
 import type { EntryContext } from '@remix-run/node'
 
+import { GET_STORE_CONFIG } from '@/graphql/queries/getStoreConfig'
 import { makeStore } from '@/store/store'
+import { actions as appActions } from '@/store/app'
 import { makeClient } from './apollo/client'
-import MuiProvider from './mui/MuiProvider'
+import MuiProvider from './mui/muiProvider'
 
 const ABORT_DELAY = 5_000
 
-async function wrapRemixServerWithApollo(remixServer: ReactElement, request: Request) {
-  const client = await makeClient(request)
-
+async function wrapRemixServerWithApollo(
+  remixServer: ReactElement,
+  client: ApolloClient<any>,
+  store: any
+) {
   const app = <ApolloProvider client={client}>{remixServer}</ApolloProvider>
 
   await getDataFromTree(app)
@@ -31,42 +35,43 @@ async function wrapRemixServerWithApollo(remixServer: ReactElement, request: Req
           __html: `window.__APOLLO_STATE__=${JSON.stringify(initialState).replace(/</g, '\\u003c')}` // The replace call escapes the < character to prevent cross-site scripting attacks that are possible via the presence of </script> in a string literal
         }}
       />
+      <script
+        dangerouslySetInnerHTML={{
+          __html: `window.__PRELOADED_STATE__=${JSON.stringify(store.getState()).replace(/</g, '\\u003c')}` // The replace call escapes the < character to prevent cross-site scripting attacks that are possible via the presence of </script> in a string literal
+        }}
+      />
     </>
   )
   return appWithData
 }
 
-export default function handleRequest(
+export default async function handleRequest(
   request: Request,
   responseStatusCode: number,
   responseHeaders: Headers,
   remixContext: EntryContext
 ) {
   const callbackName = isbot(request.headers.get('user-agent')) ? 'onAllReady' : 'onShellReady'
-  // const client = makeClient({
-  //   headers: request.headers as never,
-  //   credentials: request.credentials ?? 'include' // or "same-origin" if your backend server is the same domain
-  // })
+  const client = makeClient(request)
   const store = makeStore()
+
+  const { data } = await client.query({
+    query: GET_STORE_CONFIG
+  })
+  store.dispatch(appActions.setAppConfig(data))
 
   return new Promise(async (resolve, reject) => {
     let shellRendered = false
 
     const { pipe, abort } = renderToPipeableStream(
-      // <ApolloProvider client={client}>
-      //   <Provider store={store}>
-      //     <MuiProvider>
-      //       <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
-      //     </MuiProvider>
-      //   </Provider>
-      // </ApolloProvider>,
       await wrapRemixServerWithApollo(
         <Provider store={store}>
           <MuiProvider>
             <RemixServer context={remixContext} url={request.url} abortDelay={ABORT_DELAY} />
           </MuiProvider>
         </Provider>,
-        request
+        client,
+        store
       ),
       {
         [callbackName]: () => {

@@ -10,7 +10,6 @@ import { GET_ROUTE } from '@/graphql/queries/getRoute'
 import { makeClient } from '../apollo/client'
 
 import CategoryPage from '@/page/CategoryPage'
-// const CategoryPage = loadable(() => import('@/page/CategoryPage'))
 const ProductPage = loadable(() => import('@/page/ProductPage'))
 const CmsPage = loadable(() => import('@/page/CmsPage'))
 
@@ -27,11 +26,9 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 
 const URLKey = () => {
   const data = useLoaderData<typeof loader>()
-  console.info(data)
 
   return (
     <div>
-      <p>URLKey</p>
       {data?.type === 'CATEGORY' && <CategoryPage data={data} />}
       {data?.type === 'PRODUCT' && <ProductPage data={data} />}
       {data?.type === 'CMS_PAGE' && <CmsPage data={data} />}

@@ -15,11 +15,12 @@ export const links: LinksFunction = () => {
 }
 
 export const loader = async () => {
-  const client = makeClient()
-  const { data } = await client.query({
-    query: GET_STORE_CONFIG
-  })
-  return json(data)
+  // const client = makeClient()
+  // const { data } = await client.query({
+  //   query: GET_STORE_CONFIG
+  // })
+  // return json(data)
+  return {}
 }
 
 export const Layout = ({ children }: { children: React.ReactNode }) => {
@@ -41,10 +42,11 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
 }
 
 const App = () => {
-  const dispatch = useDispatch()
-  const globalData = useLoaderData<typeof loader>()
+  // const dispatch = useDispatch()
+  // const globalData = useLoaderData<typeof loader>()
+  const globalData = {}
 
-  dispatch(appActions.setAppConfig(globalData))
+  // dispatch(appActions.setAppConfig(globalData))
 
   return (
     <div id="__remix">

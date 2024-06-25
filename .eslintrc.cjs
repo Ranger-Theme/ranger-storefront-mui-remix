@@ -88,6 +88,7 @@ module.exports = {
         usePrettierrc: false
       }
     ],
+    'no-async-promise-executor': 0,
     '@typescript-eslint/no-explicit-any': 'off'
   }
 }

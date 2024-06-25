@@ -2,7 +2,6 @@ import CategoryGrid from '@/components/CategoryGrid'
 
 const CategoryPage = ({ data }: any) => {
   const showProducts: boolean = data.display_mode !== 'PAGES'
-  console.info(data)
 
   return (
     <article className="category p-4">

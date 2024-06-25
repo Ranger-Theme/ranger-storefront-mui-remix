@@ -5,7 +5,7 @@ import { Provider } from 'react-redux'
 import { ApolloProvider, ApolloClient, InMemoryCache, HttpLink } from '@apollo/client'
 
 import { makeStore } from '@/store/store'
-import MuiProvider from './mui/MuiProvider'
+import MuiProvider from './mui/muiProvider'
 // import { makeClient } from './apollo/client'
 
 startTransition(() => {
