@@ -1,7 +1,7 @@
 import { useQuery } from '@apollo/client'
 
 import { GET_FILTER_INPUTS } from '@/graphql/queries/getFilterInputs'
-// import ProductList from '@/components/ProductList'
+import ProductList from '@/components/ProductList'
 
 const CategoryGrid = ({ id }: any) => {
   const { data } = useQuery<any>(GET_FILTER_INPUTS)
@@ -21,7 +21,7 @@ const CategoryGrid = ({ id }: any) => {
               </div>
             </aside>
           </div>
-          {/* <ProductList inputs={inputs} id={id} /> */}
+          <ProductList inputs={inputs} id={id} />
         </div>
       )}
     </div>

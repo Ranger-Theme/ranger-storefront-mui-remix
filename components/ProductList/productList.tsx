@@ -1,10 +1,10 @@
-import { useSuspenseQuery } from '@apollo/client'
+import { useQuery } from '@apollo/client'
 
 import { GET_PRODUCTS } from '@/graphql/queries/getProducts'
 import ProductItem from './ProductItem'
 
 const ProductList = ({ inputs, id }: any) => {
-  const { data } = useSuspenseQuery<any>(GET_PRODUCTS, {
+  const { data } = useQuery<any>(GET_PRODUCTS, {
     variables: {
       search: '',
       filters: {

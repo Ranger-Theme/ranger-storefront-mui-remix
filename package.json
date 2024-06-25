@@ -24,13 +24,16 @@
     "@remix-run/serve": "^2.9.2",
     "clsx": "^2.1.1",
     "isbot": "^5.1.9",
+    "lodash-es": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
+    "react-icons": "^5.2.1",
     "react-redux": "^9.1.2"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",
     "@types/loadable__component": "^5.13.9",
+    "@types/lodash-es": "^4.17.12",
     "@types/react": "^18.3.3",
     "@types/react-dom": "^18.3.0",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
