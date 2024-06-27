@@ -23,12 +23,14 @@
     "@remix-run/react": "^2.9.2",
     "@remix-run/serve": "^2.9.2",
     "clsx": "^2.1.1",
+    "is-ip": "^5.0.1",
     "isbot": "^5.1.9",
     "lodash-es": "^4.17.21",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "react-icons": "^5.2.1",
-    "react-redux": "^9.1.2"
+    "react-redux": "^9.1.2",
+    "remix-utils": "^7.6.0"
   },
   "devDependencies": {
     "@remix-run/dev": "^2.9.2",

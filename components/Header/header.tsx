@@ -1,17 +1,13 @@
-import { Link } from '@remix-run/react'
-import { useSelector } from 'react-redux'
-
-import { StyledHeader } from './styled'
+import Logo from '@/components/Logo'
+import MegaMenu from '@/components/MegaMenu'
 
 const Header = () => {
-  const storeConfig = useSelector((state: any) => state.app.storeConfig)
-
   return (
-    <StyledHeader>
-      <h3>Header</h3>
-      <Link to="/">Home</Link>
-      <p>{storeConfig?.code ?? ''}</p>
-    </StyledHeader>
+    <header className="sticky grid auto-cols-fr bg-white border-b border-gray-300 h-auto justify-center px-4 top-0  w-full z-40">
+      <Logo />
+      <MegaMenu />
+      <div className="col-start-3 grid grid-flow-col items-center justify-items-end justify-self-end w-max lg:col-end-13 lg:col-start-10 lg:gap-x-4"></div>
+    </header>
   )
 }
 

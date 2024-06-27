@@ -1,5 +1,6 @@
 import { Links, Meta, Outlet, Scripts, ScrollRestoration } from '@remix-run/react'
 import { CssBaseline } from '@mui/material'
+import { ExternalScripts } from 'remix-utils/external-scripts'
 import type { LinksFunction } from '@remix-run/node'
 import RootCSS from './tailwind.css?url'
 
@@ -22,6 +23,7 @@ export const Layout = ({ children }: { children: React.ReactNode }) => {
         {children}
         <ScrollRestoration />
         <Scripts />
+        <ExternalScripts />
       </body>
     </html>
   )
