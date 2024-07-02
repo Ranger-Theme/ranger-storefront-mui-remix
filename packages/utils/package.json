@@ -1,0 +1,9 @@
+{
+  "name": "@ranger-theme/utils",
+  "author": "Ranger Theme Corp",
+  "copyright": "@ Ranger Theme Corp. All Rights Reserved",
+  "version": "0.1.0",
+  "main": "index.ts",
+  "dependencies": {},
+  "devDependencies": {}
+}

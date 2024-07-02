@@ -13,25 +13,35 @@ const MegaMenu = () => {
   const suffix: string = storeConfig?.category_url_suffix ?? ''
 
   return (
-    <>
+    <nav className="bg-[#f0f0f0]">
       {menuList.length > 0 && (
-        <nav className="lg:flex col-end-10 col-start-3 flex-grow justify-self-center">
+        <ul className="w-full max-w-screen-xl mx-auto grid grid-flow-col justify-start gap-x-5">
           {menuList.map((menu) => {
-            const { url_path, name } = menu
+            const { url_path, name, children } = menu
             return (
-              <StyledMenuItem key={url_path} className="px-3 py-0">
-                <Link
-                  className="items-center inline-flex"
-                  to={`/${url_path}${suffix}`}
-                  title={name}>
+              <StyledMenuItem key={url_path}>
+                <Link to={`/${url_path}${suffix}`} title={name}>
                   <span dangerouslySetInnerHTML={{ __html: name }} />
                 </Link>
+                {children.length > 0 && (
+                  <ul className="submenu">
+                    {children.map((submenu: any) => {
+                      return (
+                        <li key={submenu.url_path}>
+                          <Link to={`/${submenu.url_path}${suffix}`} title={submenu.name}>
+                            <span dangerouslySetInnerHTML={{ __html: submenu.name }} />
+                          </Link>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                )}
               </StyledMenuItem>
             )
           })}
-        </nav>
+        </ul>
       )}
-    </>
+    </nav>
   )
 }
 
